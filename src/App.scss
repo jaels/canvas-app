@@ -7,3 +7,21 @@
   height: 130px;
   padding: 20px;
 } 
+
+.canvasTopWrapper {
+  height: 30px;
+  padding: 10px;
+  background-color: gray;
+}
+
+.canvasAndSides {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.canvasRightWrapper {
+  background-color: lightgray;
+  position: absolute;
+  height: 100%;
+  width: auto;
+}
