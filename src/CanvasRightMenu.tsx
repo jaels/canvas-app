@@ -3,20 +3,15 @@ import React, {useState} from 'react';
 import { SketchPicker } from 'react-color';
 import './App.scss';
 
-const CanvasRightMenu: React.FC<{}> = () => {
+const CanvasRightMenu: React.FC<{backgroundColor: string, handleChangeColor: any}> = ({backgroundColor, handleChangeColor}) => {
 
-  const [background, setBackground] = useState('#fff')
-
-  const handleChangeComplete = (color: any) => {
-    console.log(color)
-    setBackground(color.hex)
-  }
+  
 
   return (
     <div className="canvasRightWrapper">
       <SketchPicker 
-        color={background}
-        onChangeComplete={ handleChangeComplete }
+        color={backgroundColor}
+        onChangeComplete={ handleChangeColor }
       />
     </div>
   );

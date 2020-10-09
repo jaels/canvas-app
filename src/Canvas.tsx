@@ -1,8 +1,7 @@
 import React, {useRef, useEffect, useState} from 'react';
 import './App.scss';
 
-const Canvas: React.FC<{}> = () => {
-
+const Canvas: React.FC<{strokeColor: string}> = ({strokeColor}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
   const [isDrawing, setIsDrawing] = useState<boolean>(false)
@@ -16,16 +15,27 @@ const Canvas: React.FC<{}> = () => {
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
 
-      const context = canvas.getContext("2d")
+      const context = canvas.getContext("2d");
       if(context) {
-        context.scale(2,2)
-        context.lineCap = "round"
-        context.strokeStyle = "#000000"
-        context.lineWidth = 4
+        context.scale(2,2);
+        context.lineCap = "round";
+        context.strokeStyle = strokeColor;
+        context.lineWidth = 3;
         contextRef.current = context;
       }
     }
   }, [])
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    let context;
+    if(canvas) {
+      context = canvas.getContext("2d");
+    }
+    if(context) {
+    context.strokeStyle = strokeColor;
+    }
+  }, [strokeColor])
 
   const startDrawing = ({nativeEvent} : any) => {
     const {offsetX, offsetY} = nativeEvent;
