@@ -6,6 +6,7 @@ const Canvas: React.FC<{}> = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null)
   const [isDrawing, setIsDrawing] = useState<boolean>(false)
+  
 
   useEffect(() => {
     const canvas = canvasRef.current;
