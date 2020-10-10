@@ -1,11 +1,10 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './App.scss';
 
-const Canvas: React.FC<{strokeColor: string}> = ({strokeColor}) => {
+const Canvas: React.FC<{ strokeColor: string }> = ({ strokeColor }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const contextRef = useRef<CanvasRenderingContext2D | null>(null)
-  const [isDrawing, setIsDrawing] = useState<boolean>(false)
-
+  const contextRef = useRef<CanvasRenderingContext2D | null>(null);
+  const [isDrawing, setIsDrawing] = useState<boolean>(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -15,53 +14,58 @@ const Canvas: React.FC<{strokeColor: string}> = ({strokeColor}) => {
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
 
-      const context = canvas.getContext("2d");
-      if(context) {
-        context.scale(2,2);
-        context.lineCap = "round";
+      const context = canvas.getContext('2d');
+      if (context) {
+        context.scale(2, 2);
+        context.lineCap = 'round';
         context.strokeStyle = strokeColor;
+        context.globalAlpha = 0.05;
         context.lineWidth = 3;
         contextRef.current = context;
       }
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     let context;
-    if(canvas) {
-      context = canvas.getContext("2d");
+    if (canvas) {
+      context = canvas.getContext('2d');
+      // console.log(canvas.toDataURL());
     }
-    if(context) {
-    context.strokeStyle = strokeColor;
+    if (context) {
+      context.strokeStyle = strokeColor;
     }
-  }, [strokeColor])
+  }, [strokeColor]);
 
-  const startDrawing = ({nativeEvent} : any) => {
-    const {offsetX, offsetY} = nativeEvent;
-    contextRef && contextRef.current && contextRef.current.beginPath()
-    contextRef && contextRef.current && contextRef.current.moveTo(offsetX, offsetY)
-    setIsDrawing(true)
-  }
+  const startDrawing = ({ nativeEvent }: any) => {
+    const { offsetX, offsetY } = nativeEvent;
+    contextRef && contextRef.current && contextRef.current.beginPath();
+    contextRef &&
+      contextRef.current &&
+      contextRef.current.moveTo(offsetX, offsetY);
+    setIsDrawing(true);
+  };
 
   const finishDrawing = () => {
-    contextRef && contextRef.current && contextRef.current.closePath()
-    setIsDrawing(false)
-  }
+    contextRef && contextRef.current && contextRef.current.closePath();
+    setIsDrawing(false);
+  };
 
-  const draw = ({nativeEvent}: any) => {
-    if(!isDrawing){
+  const draw = ({ nativeEvent }: any) => {
+    if (!isDrawing) {
       return;
     }
-    const {offsetX, offsetY} = nativeEvent;
-    contextRef && contextRef.current && contextRef.current.lineTo(offsetX, offsetY)
-    contextRef && contextRef.current && contextRef.current.stroke()
-  }
-
+    const { offsetX, offsetY } = nativeEvent;
+    contextRef &&
+      contextRef.current &&
+      contextRef.current.lineTo(offsetX, offsetY);
+    contextRef && contextRef.current && contextRef.current.stroke();
+  };
 
   return (
-    <div className="canvasWrapper">
-      <canvas 
+    <div className='canvasWrapper'>
+      <canvas
         ref={canvasRef}
         onMouseDown={startDrawing}
         onMouseUp={finishDrawing}
@@ -69,6 +73,6 @@ const Canvas: React.FC<{strokeColor: string}> = ({strokeColor}) => {
       />
     </div>
   );
-}
+};
 
 export default Canvas;
