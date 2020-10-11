@@ -3,18 +3,23 @@ import { ChromePicker } from 'react-color';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { canvasState } from './canvasReducer';
-import { changeColor } from './actions';
+import { changeColor, changeOpacity } from './actions';
 
 import Slider from './Slider';
 import './rightMenu.css';
 
 const CanvasRightMenu: React.FC<{}> = () => {
   const color = useSelector<canvasState, string>((state) => state.color);
+  const opacity = useSelector<canvasState, string>((state) => state.opacity);
 
   const dispatch = useDispatch();
 
   const onChangeColor = (color: string) => {
     dispatch(changeColor(color));
+  };
+
+  const onChangeOpacity = (e: React.ChangeEvent<HTMLInputElement>): any => {
+    dispatch(changeOpacity(e.target.value));
   };
 
   return (
@@ -26,7 +31,11 @@ const CanvasRightMenu: React.FC<{}> = () => {
       />
       <div className='opacityArea'>
         <p>Opacity</p>
-        <Slider type='opacity' />
+        <Slider
+          type='opacity'
+          onChange={onChangeOpacity}
+          currentValue={opacity}
+        />
       </div>
     </div>
   );

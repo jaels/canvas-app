@@ -8,6 +8,7 @@ const Canvas: React.FC<{}> = () => {
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
   const [isDrawing, setIsDrawing] = useState<boolean>(false);
   const color = useSelector<canvasState, string>((state) => state.color);
+  const opacity = useSelector<canvasState, string>((state) => state.opacity);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,7 +23,7 @@ const Canvas: React.FC<{}> = () => {
         context.scale(2, 2);
         context.lineCap = 'round';
         context.strokeStyle = color;
-        context.globalAlpha = 1;
+        context.globalAlpha = parseInt(opacity) / 100;
         context.lineWidth = 3;
         contextRef.current = context;
       }
@@ -38,8 +39,20 @@ const Canvas: React.FC<{}> = () => {
     }
     if (context) {
       context.strokeStyle = color;
+      context.globalAlpha = parseInt(opacity) / 100;
     }
   }, [color]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    let context;
+    if (canvas) {
+      context = canvas.getContext('2d');
+    }
+    if (context) {
+      context.globalAlpha = parseInt(opacity) / 100;
+    }
+  }, [opacity]);
 
   const startDrawing = ({ nativeEvent }: any) => {
     const { offsetX, offsetY } = nativeEvent;

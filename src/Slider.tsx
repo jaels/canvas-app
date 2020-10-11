@@ -1,17 +1,21 @@
 import React from 'react';
 import './App.scss';
 
-const Slider: React.FC<{ type: string }> = ({ type }) => {
+interface SliderProps {
+  type: string;
+  onChange(e: React.ChangeEvent<HTMLInputElement>): string;
+  currentValue: string;
+}
+
+const Slider: React.FC<SliderProps> = ({ type, onChange, currentValue }) => {
   const getValues = (type: string) => {
     switch (type) {
       case 'opacity':
-        return { min: 0, max: 100, defaultValue: 50, units: '%' };
-        break;
+        return { min: '0', max: '100', units: '%' };
       case 'brushSize':
-        return { min: 1, max: 50, defaultValue: 4, units: 'px' };
-        break;
+        return { min: 1, max: 50, units: 'px' };
       default:
-        return { min: 0, max: 100, defaultValue: 50 };
+        return { min: 0, max: 100 };
     }
   };
 
@@ -19,12 +23,15 @@ const Slider: React.FC<{ type: string }> = ({ type }) => {
 
   return (
     <div className='sliderWrapper'>
-      <p>{values.defaultValue}</p>
+      <p>
+        {currentValue} {values.units}
+      </p>
       <input
         type='range'
         min={values.min}
         max={values.max}
-        value={values.defaultValue}
+        value={currentValue}
+        onChange={onChange}
       />
     </div>
   );
