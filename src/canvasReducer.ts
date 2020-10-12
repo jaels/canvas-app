@@ -3,11 +3,17 @@ import { Action } from './actions';
 export interface canvasState {
   color: string;
   opacity: string;
+  brushSize: string;
+  canvasData: Array<number>;
+  colorArray: Array<string>;
 }
 
 const initialState = {
-  color: '000000',
+  color: 'rgb(0,0,0)',
   opacity: '100',
+  brushSize: '40',
+  canvasData: [],
+  colorArray: [],
 };
 
 export const canvasReducer = (
@@ -24,6 +30,25 @@ export const canvasReducer = (
       return {
         ...state,
         opacity: action.payload,
+      };
+    case 'CHANGE_BRUSH_SIZE':
+      return {
+        ...state,
+        brushSize: action.payload,
+      };
+    case 'SAVE_CANVAS_DATA':
+      return {
+        ...state,
+        canvasData: action.payload,
+      };
+    case 'UPDATE_COLOR_ARRAY':
+      return {
+        ...state,
+        colorArray: action.payload,
+      };
+    case 'RESET_CANVAS':
+      return {
+        ...initialState,
       };
     default:
       return state;

@@ -13,9 +13,9 @@ const Slider: React.FC<SliderProps> = ({ type, onChange, currentValue }) => {
       case 'opacity':
         return { min: '0', max: '100', units: '%' };
       case 'brushSize':
-        return { min: 1, max: 50, units: 'px' };
+        return { min: '1', max: '50', units: 'px' };
       default:
-        return { min: 0, max: 100 };
+        return { min: '0', max: '100' };
     }
   };
 
@@ -23,7 +23,7 @@ const Slider: React.FC<SliderProps> = ({ type, onChange, currentValue }) => {
 
   return (
     <div className='sliderWrapper'>
-      <p>
+      <p className='sliderValue'>
         {currentValue} {values.units}
       </p>
       <input

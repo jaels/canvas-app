@@ -6,7 +6,11 @@
   background-color: brown;
   height: 130px;
   padding: 20px;
-} 
+}
+
+.navLink {
+  margin-right: 10px;
+}
 
 .canvasTopWrapper {
   height: 30px;
@@ -26,3 +30,20 @@
   width: auto;
 }
 
+.canvasTopWrapper {
+  display: flex;
+  height: auto;
+  padding: 4px;
+}
+
+.sliderValue {
+  margin-bottom: 5px;
+}
+
+.statisticsWrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 18;
+}
