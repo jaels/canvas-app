@@ -3,7 +3,7 @@ import Header from './Header';
 import Draw from './Draw';
 import Statistics from './Statistics';
 
-import { Route, BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 
 import './App.scss';
 
@@ -11,8 +11,11 @@ const App: React.FC<{}> = () => {
   return (
     <Router>
       <div className='App'>
+        <Route path='/'>
+          <Redirect to='/draw' />{' '}
+        </Route>
         <Header />
-        <Route exact path={['/', '/draw']} component={Draw} />
+        <Route path='/draw' component={Draw} />
         <Route path='/statistics' component={Statistics} />
       </div>
     </Router>

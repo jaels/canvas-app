@@ -8,7 +8,6 @@ import './App.scss';
 const Draw: React.FC<{}> = () => {
   return (
     <div className='drawWrapper'>
-      <CanvasTopMenu />
       <div className='canvasAndSides'>
         <Canvas />
         <CanvasRightMenu />

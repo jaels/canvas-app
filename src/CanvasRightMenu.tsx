@@ -6,6 +6,7 @@ import { canvasState } from './canvasReducer';
 import {
   changeColor,
   changeOpacity,
+  changeBrushSize,
   resetCanvas,
   exportCanvas,
   loadCanvas,
@@ -17,6 +18,9 @@ import './rightMenu.css';
 const CanvasRightMenu: React.FC<{}> = () => {
   const color = useSelector<canvasState, string>((state) => state.color);
   const opacity = useSelector<canvasState, string>((state) => state.opacity);
+  const brushSize = useSelector<canvasState, string>(
+    (state) => state.brushSize
+  );
 
   const dispatch = useDispatch();
 
@@ -27,6 +31,9 @@ const CanvasRightMenu: React.FC<{}> = () => {
 
   const onChangeOpacity = (e: React.ChangeEvent<HTMLInputElement>): any => {
     dispatch(changeOpacity(e.target.value));
+  };
+  const onChangeBrushSize = (e: React.ChangeEvent<HTMLInputElement>): any => {
+    dispatch(changeBrushSize(e.target.value));
   };
 
   const clearCanvas = () => {
@@ -57,6 +64,14 @@ const CanvasRightMenu: React.FC<{}> = () => {
           currentValue={opacity}
         />
       </div>
+      <div className='brushSizeArea'>
+        <p>brush size</p>
+        <Slider
+          type='brushSize'
+          onChange={onChangeBrushSize}
+          currentValue={brushSize}
+        />
+      </div>
       <div className='buttonsArea'>
         <button className='menuButton' type='button' onClick={clearCanvas}>
           Clear
@@ -66,7 +81,7 @@ const CanvasRightMenu: React.FC<{}> = () => {
         </button>
         <div>
           <p>Load</p>
-          <input type='file' id='load' onChange={onLoadCanvas} />
+          <input type='file' className='loadInput' onChange={onLoadCanvas} />
         </div>
       </div>
     </div>

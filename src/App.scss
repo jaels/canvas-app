@@ -1,15 +1,48 @@
+@import 'global.scss';
+
 .App {
   text-align: center;
+  font-family: 'Lato', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .headerWrapper {
-  background-color: brown;
-  height: 130px;
-  padding: 20px;
+  background-color: #625454;
+  height: 100px;
+  padding: 10px;
+}
+
+.appTitle {
+  font-size: 22px;
+  font-weight: 100;
+  color: $text-gray;
+  margin-top: 5px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.fas {
+  margin-bottom: 10px;
 }
 
 .navLink {
   margin-right: 10px;
+  margin-left: 10px;
+  text-decoration: none;
+  color: $text-gray;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $text-gray;
+}
+
+.active {
+  color: white;
 }
 
 .canvasTopWrapper {
@@ -27,7 +60,7 @@
   background-color: lightgray;
   position: absolute;
   height: 100%;
-  width: auto;
+  width: 220px;
 }
 
 .canvasTopWrapper {
@@ -58,4 +91,8 @@
 .menuButton {
   width: 80px;
   margin-bottom: 10px;
+}
+
+.loadInput {
+  width: 220px;
 }

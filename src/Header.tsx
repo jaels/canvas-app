@@ -6,12 +6,18 @@ import './App.scss';
 const Header: React.FC<{}> = () => {
   return (
     <div className='headerWrapper'>
-      <h3>Hasty.ai</h3>
+      <p className='appTitle'>Hasty.ai</p>
       <div className='nav'>
-        <NavLink className='navLink' to={'/draw'}>
+        <NavLink className='navLink' activeClassName='active' to={'/draw'}>
+          <i className='fas fa-pencil-alt fa-4px'></i>
           Draw
         </NavLink>
-        <NavLink className='navLink' to={'/statistics'}>
+        <NavLink
+          className='navLink'
+          activeClassName='active'
+          to={'/statistics'}
+        >
+          <i className='fas fa-chart-pie fa-4px'></i>
           Statistics
         </NavLink>
       </div>
