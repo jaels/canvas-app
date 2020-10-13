@@ -24,7 +24,8 @@ const Slider: React.FC<SliderProps> = ({ type, onChange, currentValue }) => {
   return (
     <div className='sliderWrapper'>
       <p className='sliderValue'>
-        {currentValue} {values.units}
+        {currentValue}
+        {values.units}
       </p>
       <input
         type='range'

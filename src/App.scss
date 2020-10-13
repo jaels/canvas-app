@@ -8,7 +8,7 @@
 }
 
 .headerWrapper {
-  background-color: #625454;
+  background-color: $main-brown;
   height: 100px;
   padding: 10px;
 }
@@ -32,7 +32,7 @@
 }
 
 .navLink {
-  margin-right: 10px;
+  margin-right: 6px;
   margin-left: 10px;
   text-decoration: none;
   color: $text-gray;
@@ -45,19 +45,13 @@
   color: white;
 }
 
-.canvasTopWrapper {
-  height: 30px;
-  padding: 10px;
-  background-color: gray;
-}
-
 .canvasAndSides {
   display: flex;
   flex-direction: row-reverse;
 }
 
 .canvasRightWrapper {
-  background-color: lightgray;
+  background-color: $text-gray;
   position: absolute;
   height: 100%;
   width: 220px;
@@ -69,8 +63,25 @@
   padding: 4px;
 }
 
+.sliderArea {
+  color: $main-brown;
+  margin-bottom: 10px;
+}
+
+.sliderTitle {
+  font-weight: 400;
+  margin-bottom: 0px;
+}
+
 .sliderValue {
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  margin-top: 7px;
+}
+
+input[type='range'] {
+  color: white;
+  -webkit-appearance: none;
+  background-color: $main-brown;
 }
 
 .statisticsWrapper {
@@ -79,6 +90,9 @@
   flex-direction: column;
   align-items: center;
   padding: 18;
+  background-color: $text-gray;
+  height: 100%;
+  color: $main-brown
 }
 
 .buttonsArea {
@@ -86,13 +100,38 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 25px;
 }
 
 .menuButton {
   width: 80px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  background-color: $main-brown;
+  color: $text-gray;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  background-color: $text-gray;
+  color: $main-brown;
 }
 
 .loadInput {
-  width: 220px;
+  // width: 220px;
+  display: none;
+}
+
+.loadButton {
+  padding: 7px;
+  width: 150px;
+  height: 50px;
+  font-size: 12px;
+  margin-top: 80px;
+  background-color: $main-brown;
+  color: $text-gray;
+  // height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
 }

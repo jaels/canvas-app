@@ -56,16 +56,16 @@ const CanvasRightMenu: React.FC<{}> = () => {
         onChangeComplete={(event) => onChangeColor(event.rgb)}
         disableAlpha={true}
       />
-      <div className='opacityArea'>
-        <p>Opacity</p>
+      <div className='sliderArea'>
+        <p className='sliderTitle'>Opacity</p>
         <Slider
           type='opacity'
           onChange={onChangeOpacity}
           currentValue={opacity}
         />
       </div>
-      <div className='brushSizeArea'>
-        <p>brush size</p>
+      <div className='sliderArea'>
+        <p className='sliderTitle'>Brush size</p>
         <Slider
           type='brushSize'
           onChange={onChangeBrushSize}
@@ -80,8 +80,15 @@ const CanvasRightMenu: React.FC<{}> = () => {
           Export
         </button>
         <div>
-          <p>Load</p>
-          <input type='file' className='loadInput' onChange={onLoadCanvas} />
+          <label htmlFor='load' className='loadButton'>
+            Load file
+            <input
+              type='file'
+              className='loadInput'
+              id='load'
+              onChange={onLoadCanvas}
+            />
+          </label>
         </div>
       </div>
     </div>

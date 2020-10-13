@@ -38,18 +38,6 @@ const Statistics: React.FC<{}> = () => {
             canvasData[i + 3] === 0
           )
         ) {
-          // let hex = convertRgbToHex(
-          //   canvasData[i],
-          //   canvasData[i + 1],
-          //   canvasData[i + 2]
-          // );
-          // const a =
-          //   canvasData[i + 3] < 255
-          //     ? Math.round(canvasData[i + 3]).toString(16)
-          //     : '';
-          // const hexa = `${hex}${a}`;
-          // console.log(a);
-
           let rgb = `rgb(${canvasData[i]},${canvasData[i + 1]},${
             canvasData[i + 2]
           })`;
@@ -67,8 +55,6 @@ const Statistics: React.FC<{}> = () => {
         };
       });
       setPieData(data);
-      console.log(colorObj);
-      console.log(data);
     }
   }, []);
 

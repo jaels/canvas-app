@@ -1,6 +1,5 @@
 import React from 'react';
 import Canvas from './Canvas';
-import CanvasTopMenu from './CanvasTopMenu';
 import CanvasRightMenu from './CanvasRightMenu';
 
 import './App.scss';
