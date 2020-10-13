@@ -1,13 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { canvasState } from './canvasReducer';
-import {
-  saveCanvasData,
-  updateColorArray,
-  exportCanvas,
-  loadCanvas,
-} from './actions';
-import './App.scss';
+import { saveCanvasData, updateColorArray, exportCanvas } from './actions';
+import './canvas.scss';
 
 const Canvas: React.FC<{}> = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);

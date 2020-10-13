@@ -3,7 +3,7 @@ import { canvasState } from './canvasReducer';
 import { useSelector } from 'react-redux';
 import { PieChart, Pie, Cell } from 'recharts';
 
-import './App.scss';
+import './canvas.scss';
 
 const Statistics: React.FC<{}> = () => {
   const canvasData = useSelector<canvasState, Array<number>>(
@@ -60,20 +60,20 @@ const Statistics: React.FC<{}> = () => {
 
   return (
     <div className='statisticsWrapper'>
-      <h3>Different color usage in your drawing</h3>
-      <PieChart width={300} height={300}>
-        <Pie
-          data={pieData}
-          innerRadius={20}
-          outerRadius={130}
-          fill='#8884d8'
-          dataKey='value'
-        >
-          {pieData.map((entry, index) => (
-            <Cell key={`cell-${entry.name}`} fill={colorArray[index]} />
-          ))}
-        </Pie>
-      </PieChart>
+      <h3>
+        {colorArray.length
+          ? 'Color usage in your drawing'
+          : 'Sorry, no data, please draw something'}
+      </h3>
+      {colorArray.length > 0 && (
+        <PieChart width={300} height={300}>
+          <Pie data={pieData} outerRadius={130} fill='#8884d8' dataKey='value'>
+            {pieData.map((entry, index) => (
+              <Cell key={`cell-${entry.name}`} fill={colorArray[index]} />
+            ))}
+          </Pie>
+        </PieChart>
+      )}
     </div>
   );
 };

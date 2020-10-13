@@ -1,0 +1,81 @@
+@import 'global.scss';
+
+.canvasRightWrapper {
+  background-color: $text-gray;
+  position: absolute;
+  height: 100%;
+  width: 220px;
+}
+
+.sliderArea {
+  color: $main-brown;
+  margin-bottom: 10px;
+}
+
+.sliderTitle {
+  font-weight: 400;
+  margin-bottom: 0px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sliderValue {
+  margin-bottom: 4px;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+input[type='range'] {
+  color: white;
+  -webkit-appearance: none;
+  background-color: $main-brown;
+  border-radius: 4px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: white;
+}
+
+.buttonsArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.menuButton {
+  width: 80px;
+  margin-bottom: 15px;
+  background-color: $main-brown;
+  color: $text-gray;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  background-color: $text-gray;
+  color: $main-brown;
+}
+
+.loadInput {
+  display: none;
+}
+
+.loadButton {
+  padding: 7px;
+  width: 150px;
+  height: 50px;
+  font-size: 12px;
+  margin-top: 80px;
+  background-color: $main-brown;
+  color: $text-gray;
+  border-radius: 4px;
+  cursor: pointer;
+}

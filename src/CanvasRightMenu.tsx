@@ -13,7 +13,7 @@ import {
 } from './actions';
 
 import Slider from './Slider';
-import './rightMenu.css';
+import './rightMenu.scss';
 
 const CanvasRightMenu: React.FC<{}> = () => {
   const color = useSelector<canvasState, string>((state) => state.color);

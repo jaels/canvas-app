@@ -13,7 +13,7 @@ export interface canvasState {
 const initialState = {
   color: 'rgb(0,0,0)',
   opacity: '100',
-  brushSize: '40',
+  brushSize: '4',
   canvasData: [],
   colorArray: [],
   exportActive: false,
