@@ -4,6 +4,8 @@ export type Action =
   | { type: 'CHANGE_BRUSH_SIZE'; payload: string }
   | { type: 'SAVE_CANVAS_DATA'; payload: [] }
   | { type: 'UPDATE_COLOR_ARRAY'; payload: Array<string> }
+  | { type: 'EXPORT_CANVAS'; payload: boolean }
+  | { type: 'LOAD_CANVAS'; payload: any }
   | { type: 'RESET_CANVAS' };
 
 export const changeColor = (color: string): Action => ({
@@ -33,4 +35,14 @@ export const updateColorArray = (colorArray: Array<string>): Action => ({
 
 export const resetCanvas = (): Action => ({
   type: 'RESET_CANVAS',
+});
+
+export const exportCanvas = (exportActive: boolean): Action => ({
+  type: 'EXPORT_CANVAS',
+  payload: exportActive,
+});
+
+export const loadCanvas = (loadActive: any): Action => ({
+  type: 'LOAD_CANVAS',
+  payload: loadActive,
 });

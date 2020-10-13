@@ -47,3 +47,15 @@
   align-items: center;
   padding: 18;
 }
+
+.buttonsArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.menuButton {
+  width: 80px;
+  margin-bottom: 10px;
+}

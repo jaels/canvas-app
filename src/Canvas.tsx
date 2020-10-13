@@ -1,7 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { canvasState } from './canvasReducer';
-import { saveCanvasData, updateColorArray } from './actions';
+import {
+  saveCanvasData,
+  updateColorArray,
+  exportCanvas,
+  loadCanvas,
+} from './actions';
 import './App.scss';
 
 const Canvas: React.FC<{}> = () => {
@@ -20,6 +25,13 @@ const Canvas: React.FC<{}> = () => {
   const canvasData = useSelector<canvasState, Array<number>>(
     (state) => state.canvasData
   );
+
+  const exportActive = useSelector<canvasState, boolean>(
+    (state) => state.exportActive
+  );
+
+  const fileLoaded = useSelector<canvasState, any>((state) => state.fileLoaded);
+
   const dispatch = useDispatch();
   const onSaveCanvasData = (canvasData: any) => {
     dispatch(saveCanvasData(canvasData));
@@ -32,30 +44,25 @@ const Canvas: React.FC<{}> = () => {
     }
   };
 
+  const onFinishCanvasExport = () => {
+    dispatch(exportCanvas(false));
+  };
+
   useEffect(() => {
     const canvas = canvasRef.current;
     if (canvas) {
-      canvas.width = window.innerWidth * 2;
-      canvas.height = window.innerHeight * 2;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
 
       const context = canvas.getContext('2d');
       if (context) {
-        context.scale(2, 2);
         context.lineCap = 'round';
         context.strokeStyle = color;
         context.globalAlpha = parseInt(opacity) / 100;
         context.lineWidth = parseInt(brushSize);
         contextRef.current = context;
-      }
-      const prevCanvas = localStorage.getItem('imageData');
-      if (prevCanvas && prevCanvas.length && context) {
-        let img = new Image();
-        img.onload = () => {
-          context.drawImage(img, 0, 0);
-        };
-        img.src = prevCanvas;
       }
     }
   }, []);
@@ -89,9 +96,55 @@ const Canvas: React.FC<{}> = () => {
     }
   }, [canvasData]);
 
+  useEffect(() => {
+    if (exportActive && canvasRef.current) {
+      const canvasDataUrl = canvasRef.current.toDataURL();
+      const data = { image: canvasDataUrl, date: Date.now() };
+      const string = JSON.stringify(data);
+
+      const file = new Blob([string], {
+        type: 'application/json',
+      });
+
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(file);
+      a.download = 'data.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      onFinishCanvasExport();
+    }
+  }, [exportActive]);
+
+  useEffect(() => {
+    if (fileLoaded) {
+      const reader = new FileReader();
+      const handleFileRead = (e: any) => {
+        //@ts-ignore
+        const data = JSON.parse(reader.result);
+        let img = new Image();
+        img.onload = () => {
+          if (contextRef.current && canvasRef.current) {
+            contextRef.current.clearRect(
+              0,
+              0,
+              canvasRef.current.width,
+              canvasRef.current.height
+            );
+            contextRef.current.drawImage(img, 0, 0);
+          }
+        };
+        img.src = data.image;
+      };
+      reader.onloadend = handleFileRead;
+      reader.readAsText(fileLoaded);
+    }
+  }, [fileLoaded]);
+
   const startDrawing = ({ nativeEvent }: any) => {
     const { offsetX, offsetY } = nativeEvent;
     if (contextRef.current) {
+      console.log(contextRef.current);
       contextRef.current.beginPath();
       contextRef.current.moveTo(offsetX, offsetY);
     }

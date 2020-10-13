@@ -3,7 +3,13 @@ import { ChromePicker } from 'react-color';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { canvasState } from './canvasReducer';
-import { changeColor, changeOpacity, resetCanvas } from './actions';
+import {
+  changeColor,
+  changeOpacity,
+  resetCanvas,
+  exportCanvas,
+  loadCanvas,
+} from './actions';
 
 import Slider from './Slider';
 import './rightMenu.css';
@@ -28,6 +34,14 @@ const CanvasRightMenu: React.FC<{}> = () => {
     dispatch(resetCanvas());
   };
 
+  const onExportCanvas = () => {
+    dispatch(exportCanvas(true));
+  };
+
+  const onLoadCanvas = (e: any) => {
+    dispatch(loadCanvas(e.target.files[0]));
+  };
+
   return (
     <div className='canvasRightWrapper'>
       <ChromePicker
@@ -43,9 +57,18 @@ const CanvasRightMenu: React.FC<{}> = () => {
           currentValue={opacity}
         />
       </div>
-      <button type='button' onClick={clearCanvas}>
-        clear
-      </button>
+      <div className='buttonsArea'>
+        <button className='menuButton' type='button' onClick={clearCanvas}>
+          Clear
+        </button>
+        <button className='menuButton' type='button' onClick={onExportCanvas}>
+          Export
+        </button>
+        <div>
+          <p>Load</p>
+          <input type='file' id='load' onChange={onLoadCanvas} />
+        </div>
+      </div>
     </div>
   );
 };

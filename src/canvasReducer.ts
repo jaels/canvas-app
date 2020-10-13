@@ -6,6 +6,8 @@ export interface canvasState {
   brushSize: string;
   canvasData: Array<number>;
   colorArray: Array<string>;
+  exportActive: boolean;
+  fileLoaded: any;
 }
 
 const initialState = {
@@ -14,6 +16,8 @@ const initialState = {
   brushSize: '40',
   canvasData: [],
   colorArray: [],
+  exportActive: false,
+  fileLoaded: null,
 };
 
 export const canvasReducer = (
@@ -45,6 +49,16 @@ export const canvasReducer = (
       return {
         ...state,
         colorArray: action.payload,
+      };
+    case 'EXPORT_CANVAS':
+      return {
+        ...state,
+        exportActive: action.payload,
+      };
+    case 'LOAD_CANVAS':
+      return {
+        ...state,
+        fileLoaded: action.payload,
       };
     case 'RESET_CANVAS':
       return {
