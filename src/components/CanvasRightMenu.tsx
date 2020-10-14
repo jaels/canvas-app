@@ -2,7 +2,7 @@ import React from 'react';
 import { ChromePicker } from 'react-color';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { canvasState } from './canvasReducer';
+import { canvasState } from '../canvasReducer';
 import {
   changeColor,
   changeOpacity,
@@ -10,10 +10,10 @@ import {
   resetCanvas,
   exportCanvas,
   loadCanvas,
-} from './actions';
+} from '../actions';
 
 import Slider from './Slider';
-import './rightMenu.scss';
+import '../rightMenu.scss';
 
 const CanvasRightMenu: React.FC<{}> = () => {
   const color = useSelector<canvasState, string>((state) => state.color);

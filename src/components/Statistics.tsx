@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { canvasState } from './canvasReducer';
+import { canvasState } from '../canvasReducer';
 import { useSelector } from 'react-redux';
 import { PieChart, Pie, Cell } from 'recharts';
 
-import './canvas.scss';
+import '../canvas.scss';
 
 const Statistics: React.FC<{}> = () => {
   const canvasData = useSelector<canvasState, Array<number>>(

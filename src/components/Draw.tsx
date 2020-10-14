@@ -2,7 +2,7 @@ import React from 'react';
 import Canvas from './Canvas';
 import CanvasRightMenu from './CanvasRightMenu';
 
-import './canvas.scss';
+import '../canvas.scss';
 
 const Draw: React.FC<{}> = () => {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import './canvas.scss';
+import '../canvas.scss';
 
 interface SliderProps {
   type: string;

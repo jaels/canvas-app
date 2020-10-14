@@ -5,7 +5,7 @@ import Statistics from './Statistics';
 
 import { Route, BrowserRouter as Router, Redirect } from 'react-router-dom';
 
-import './canvas.scss';
+import '../canvas.scss';
 
 const App: React.FC<{}> = () => {
   return (

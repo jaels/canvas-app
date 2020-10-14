@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { canvasState } from './canvasReducer';
+import { canvasState } from '../canvasReducer';
 import {
   saveCanvasData,
   updateColorArray,
   exportCanvas,
   resetCanvas,
-} from './actions';
-import './canvas.scss';
+} from '../actions';
+import '../canvas.scss';
 
 const Canvas: React.FC<{}> = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -117,7 +117,6 @@ const Canvas: React.FC<{}> = () => {
         canvasRef.current.height
       );
       dispatch(resetCanvas(false));
-      console.log('here');
       localStorage.setItem('colorArray', '');
     }
   }, [isResetActive]);
