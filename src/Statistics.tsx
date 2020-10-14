@@ -19,14 +19,6 @@ const Statistics: React.FC<{}> = () => {
 
   useEffect(() => {
     let colorObj: any = {};
-    const convertRgbToHex = (r: number, g: number, b: number) =>
-      '#' +
-      [r, g, b]
-        .map((x) => {
-          const hex = x.toString(16);
-          return hex.length === 1 ? '0' + hex : hex;
-        })
-        .join('');
     if (canvasData.length) {
       for (let i = 0; i < canvasData.length; i += 4) {
         if (
@@ -78,7 +70,7 @@ const Statistics: React.FC<{}> = () => {
               ))}
             </Pie>
           </PieChart>
-          <p>*Don't include colors from a loaded image</p>
+          <p>*Doesn't include colors from a loaded image</p>
         </>
       )}
     </div>
