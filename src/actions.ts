@@ -1,12 +1,14 @@
+import { bindActionCreators } from 'redux';
+
 export type Action =
   | { type: 'CHANGE_COLOR'; payload: string }
   | { type: 'CHANGE_OPACITY'; payload: string }
   | { type: 'CHANGE_BRUSH_SIZE'; payload: string }
   | { type: 'SAVE_CANVAS_DATA'; payload: [] }
-  | { type: 'UPDATE_COLOR_ARRAY'; payload: Array<string> }
+  | { type: 'UPDATE_COLOR_ARRAY'; payload: string }
   | { type: 'EXPORT_CANVAS'; payload: boolean }
   | { type: 'LOAD_CANVAS'; payload: any }
-  | { type: 'RESET_CANVAS' };
+  | { type: 'RESET_CANVAS'; payload: boolean };
 
 export const changeColor = (color: string): Action => ({
   type: 'CHANGE_COLOR',
@@ -28,13 +30,14 @@ export const saveCanvasData = (canvasData: []): Action => ({
   payload: canvasData,
 });
 
-export const updateColorArray = (colorArray: Array<string>): Action => ({
+export const updateColorArray = (color: string): Action => ({
   type: 'UPDATE_COLOR_ARRAY',
-  payload: colorArray,
+  payload: color,
 });
 
-export const resetCanvas = (): Action => ({
+export const resetCanvas = (isResetActive: boolean): Action => ({
   type: 'RESET_CANVAS',
+  payload: isResetActive,
 });
 
 export const exportCanvas = (exportActive: boolean): Action => ({

@@ -5,9 +5,10 @@ export interface canvasState {
   opacity: string;
   brushSize: string;
   canvasData: Array<number>;
-  colorArray: Array<string>;
+  colorArray: any;
   exportActive: boolean;
   fileLoaded: any;
+  isResetActive: boolean;
 }
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   colorArray: [],
   exportActive: false,
   fileLoaded: null,
+  isResetActive: false,
 };
 
 export const canvasReducer = (
@@ -48,7 +50,7 @@ export const canvasReducer = (
     case 'UPDATE_COLOR_ARRAY':
       return {
         ...state,
-        colorArray: action.payload,
+        colorArray: [...state.colorArray, action.payload],
       };
     case 'EXPORT_CANVAS':
       return {
@@ -63,6 +65,7 @@ export const canvasReducer = (
     case 'RESET_CANVAS':
       return {
         ...initialState,
+        isResetActive: action.payload,
       };
     default:
       return state;

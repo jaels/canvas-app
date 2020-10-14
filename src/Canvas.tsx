@@ -1,7 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { canvasState } from './canvasReducer';
-import { saveCanvasData, updateColorArray, exportCanvas } from './actions';
+import {
+  saveCanvasData,
+  updateColorArray,
+  exportCanvas,
+  resetCanvas,
+} from './actions';
 import './canvas.scss';
 
 const Canvas: React.FC<{}> = () => {
@@ -27,6 +32,10 @@ const Canvas: React.FC<{}> = () => {
 
   const fileLoaded = useSelector<canvasState, any>((state) => state.fileLoaded);
 
+  const isResetActive = useSelector<canvasState, boolean>(
+    (state) => state.isResetActive
+  );
+
   const dispatch = useDispatch();
   const onSaveCanvasData = (canvasData: any) => {
     dispatch(saveCanvasData(canvasData));
@@ -34,13 +43,28 @@ const Canvas: React.FC<{}> = () => {
 
   const onUpdateColorArray = () => {
     if (colorArray.indexOf(color) === -1) {
-      colorArray.push(color);
-      dispatch(updateColorArray(colorArray));
+      dispatch(updateColorArray(color));
     }
   };
 
   const onFinishCanvasExport = () => {
     dispatch(exportCanvas(false));
+  };
+
+  const createImageOnCanvas = (imageSrc: string) => {
+    let img = new Image();
+    img.onload = () => {
+      if (contextRef.current && canvasRef.current) {
+        contextRef.current.clearRect(
+          0,
+          0,
+          canvasRef.current.width,
+          canvasRef.current.height
+        );
+        contextRef.current.drawImage(img, 0, 0);
+      }
+    };
+    img.src = imageSrc;
   };
 
   useEffect(() => {
@@ -59,6 +83,10 @@ const Canvas: React.FC<{}> = () => {
         context.lineWidth = parseInt(brushSize);
         contextRef.current = context;
       }
+    }
+    if (localStorage.getItem('imageData')) {
+      //@ts-ignore
+      createImageOnCanvas(localStorage.getItem('imageData'));
     }
   }, []);
 
@@ -81,15 +109,18 @@ const Canvas: React.FC<{}> = () => {
   }, [brushSize]);
 
   useEffect(() => {
-    if (!canvasData.length && contextRef.current && canvasRef.current) {
+    if (isResetActive && contextRef.current && canvasRef.current) {
       contextRef.current.clearRect(
         0,
         0,
         canvasRef.current.width,
         canvasRef.current.height
       );
+      dispatch(resetCanvas(false));
+      console.log('here');
+      localStorage.setItem('colorArray', '');
     }
-  }, [canvasData]);
+  }, [isResetActive]);
 
   useEffect(() => {
     if (exportActive && canvasRef.current) {
@@ -100,7 +131,6 @@ const Canvas: React.FC<{}> = () => {
       const file = new Blob([string], {
         type: 'application/json',
       });
-
       var a = document.createElement('a');
       a.href = URL.createObjectURL(file);
       a.download = 'data.json';
@@ -118,18 +148,7 @@ const Canvas: React.FC<{}> = () => {
         //@ts-ignore
         const data = JSON.parse(reader.result);
         let img = new Image();
-        img.onload = () => {
-          if (contextRef.current && canvasRef.current) {
-            contextRef.current.clearRect(
-              0,
-              0,
-              canvasRef.current.width,
-              canvasRef.current.height
-            );
-            contextRef.current.drawImage(img, 0, 0);
-          }
-        };
-        img.src = data.image;
+        createImageOnCanvas(data.image);
       };
       reader.onloadend = handleFileRead;
       reader.readAsText(fileLoaded);
@@ -139,7 +158,6 @@ const Canvas: React.FC<{}> = () => {
   const startDrawing = ({ nativeEvent }: any) => {
     const { offsetX, offsetY } = nativeEvent;
     if (contextRef.current) {
-      console.log(contextRef.current);
       contextRef.current.beginPath();
       contextRef.current.moveTo(offsetX, offsetY);
     }
@@ -159,6 +177,7 @@ const Canvas: React.FC<{}> = () => {
       onSaveCanvasData(canvasData);
       const canvasDataUrl = canvasRef.current.toDataURL();
       localStorage.setItem('imageData', canvasDataUrl);
+      localStorage.setItem('colorArray', JSON.stringify(colorArray));
     }
 
     setIsDrawing(false);

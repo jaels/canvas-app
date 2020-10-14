@@ -38,7 +38,7 @@ const CanvasRightMenu: React.FC<{}> = () => {
 
   const clearCanvas = () => {
     localStorage.setItem('imageData', '');
-    dispatch(resetCanvas());
+    dispatch(resetCanvas(true));
   };
 
   const onExportCanvas = () => {

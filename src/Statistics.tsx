@@ -27,7 +27,6 @@ const Statistics: React.FC<{}> = () => {
           return hex.length === 1 ? '0' + hex : hex;
         })
         .join('');
-    console.log(convertRgbToHex(212, 42, 42));
     if (canvasData.length) {
       for (let i = 0; i < canvasData.length; i += 4) {
         if (
@@ -62,17 +61,25 @@ const Statistics: React.FC<{}> = () => {
     <div className='statisticsWrapper'>
       <h3>
         {colorArray.length
-          ? 'Color usage in your drawing'
+          ? 'Color usage in your drawing*'
           : 'Sorry, no data, please draw something'}
       </h3>
       {colorArray.length > 0 && (
-        <PieChart width={300} height={300}>
-          <Pie data={pieData} outerRadius={130} fill='#8884d8' dataKey='value'>
-            {pieData.map((entry, index) => (
-              <Cell key={`cell-${entry.name}`} fill={colorArray[index]} />
-            ))}
-          </Pie>
-        </PieChart>
+        <>
+          <PieChart width={300} height={300}>
+            <Pie
+              data={pieData}
+              outerRadius={130}
+              fill='#8884d8'
+              dataKey='value'
+            >
+              {pieData.map((entry, index) => (
+                <Cell key={`cell-${entry.name}`} fill={colorArray[index]} />
+              ))}
+            </Pie>
+          </PieChart>
+          <p>*Don't include colors from a loaded image</p>
+        </>
       )}
     </div>
   );
