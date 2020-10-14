@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### To start the app
 
-Please run `num install` and then `npm start`.
+Please clone the repo and run `npm install` and then `npm start`.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### More remarks
